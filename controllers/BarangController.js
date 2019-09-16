@@ -1,7 +1,7 @@
-var Role = require("../models/Role");
+var Barang = require("../models/Barang");
 
 exports.getAll = function(req, res) {
-  Role.getAll(function(err, item) {
+  Barang.getAll(function(err, item) {
     console.log("controller");
     if (err) res.send(err);
     console.log("res", item);
@@ -10,14 +10,12 @@ exports.getAll = function(req, res) {
 };
 
 exports.create = function(req, res) {
-  var item = new Role(req.body);
+  var item = new Barang(req.body);
   //handles null error
-  if (!item.name || !item.description) {
-    res
-      .status(400)
-      .send({ error: true, message: "Please provide role name / status" });
+  if (!item.name) {
+    res.status(400).send({ error: true, message: "Please provide Barang" });
   } else {
-    Role.create(item, function(err, item) {
+    Barang.create(item, function(err, item) {
       if (err) res.send(err);
       res.json(item);
     });
@@ -25,22 +23,25 @@ exports.create = function(req, res) {
 };
 
 exports.findById = function(req, res) {
-  Role.findById(req.params.id, function(err, item) {
+  Barang.findById(req.params.id, function(err, item) {
     if (err) res.send(err);
     res.json(item);
   });
 };
 
 exports.updateById = function(req, res) {
-  Role.updateById(req.params.id, new Role(req.body), function(err, item) {
+  Barang.updateById(req.params.id, new Barang(req.body), function(
+    err,
+    item
+  ) {
     if (err) res.send(err);
     res.json(item);
   });
 };
 
 exports.deteleById = function(req, res) {
-  Role.deleteById(req.params.id, function(err, item) {
+  Barang.deleteById(req.params.id, function(err, item) {
     if (err) res.send(err);
-    res.json({ message: "Role successfully deleted" });
+    res.json({ message: "Barang successfully deleted" });
   });
 };

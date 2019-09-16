@@ -1,9 +1,8 @@
 const sql = require("../db");
-const tabelName = "role";
+const tabelName = "barang";
 
 var Model = function(item) {
   this.name = item.name;
-  this.description = item.description;
   this.created_at = new Date();
   this.updated_at = new Date();
 };
