@@ -1,11 +1,24 @@
 var Role = require("../models/Role");
 
-exports.getAll = function(req, res) {
-  Role.getAll(function(err, item) {
-    console.log("controller");
-    if (err) res.send(err);
-    console.log("res", item);
-    res.send(item);
+exports.getAll = (req, res) => {
+  Role.getAll((err, items) => {
+    if (items.length === 0) {
+      res.status(204).json({
+        status: 204,
+        message: "Roles is kosong"
+      });
+    } else if (items === undefined) {
+      res.status(404).json({
+        status: 404,
+        message: "Roles not found"
+      });
+    } else {
+      res.status(200).json({
+        status: 200,
+        message: "Success get all roles",
+        data: items
+      });
+    }
   });
 };
 

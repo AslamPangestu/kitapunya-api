@@ -17,19 +17,19 @@ exports.register = function(req, res) {
     !item.password ||
     !item.email ||
     !item.description ||
-    !item.path_photo ||
-    !item.role_id
+    !item.path_photo
   ) {
     res
       .status(400)
       .send({ error: true, message: "Please provide User name / status" });
   } else {
     User.findByEmail(item.email, function(err, item) {
-      if (err) res.send(err);
-      if(item.length !=0){
-          return ''
-      }
-      res.json(item);
+      // if (err) res.send(err);
+      // if(item.length !=0){
+      //     return ''
+      // }
+      // res.json(item,err);
+      res.status(200).json({ item: item, error: err });
     });
     // User.create(item, function(err, item) {
     //   if (err) res.send(err);
